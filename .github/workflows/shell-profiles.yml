@@ -21,10 +21,13 @@ jobs:
       - name: Install shell dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install --yes zsh fzf ripgrep fd-find bat
+          sudo apt-get install --yes nano zsh fzf ripgrep fd-find bat
 
       - name: Run profile smoke tests
         run: bash tests/profile-smoke.sh wsl-zsh
+
+      - name: Validate generated Nano configuration
+        run: bash tests/nano-config.sh
 
       - name: Reproduce pre-existing alias collisions
         run: zsh tests/zsh-alias-collisions.zsh
