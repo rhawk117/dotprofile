@@ -15,7 +15,6 @@ for __dotprofile_wsl_path in \
     "$SHELL_CONFIG_HOME/profiles/common/profile.sh" \
     "$SHELL_CONFIG_HOME/profiles/wsl-zsh/paths.zsh" \
     "$SHELL_CONFIG_HOME/profiles/wsl-zsh/options.zsh" \
-    "$SHELL_CONFIG_HOME/profiles/wsl-zsh/history.zsh" \
     "$SHELL_CONFIG_HOME/profiles/wsl-zsh/bindings.zsh" \
     "$SHELL_CONFIG_HOME/profiles/wsl-zsh/completion.zsh" \
     "$SHELL_CONFIG_HOME/profiles/wsl-zsh/functions.zsh" \
@@ -35,4 +34,4 @@ done
 
 unset __dotprofile_wsl_path
 
-# Powerlevel10k remains owned by the user's existing .zshrc.
+# Oh My Zsh owns completion, history, and Powerlevel10k initialization.
