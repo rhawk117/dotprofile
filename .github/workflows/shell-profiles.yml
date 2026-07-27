@@ -1,0 +1,43 @@
+name: Shell profiles
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  wsl-zsh:
+    name: WSL Zsh profile
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install shell dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes zsh fzf ripgrep fd-find bat
+
+      - name: Run profile smoke tests
+        run: bash tests/profile-smoke.sh wsl-zsh
+
+  git-bash:
+    name: Git Bash profile
+    runs-on: windows-latest
+    timeout-minutes: 10
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run profile smoke tests
+        run: bash tests/profile-smoke.sh git-bash
