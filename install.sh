@@ -258,7 +258,10 @@ source \"\$SHELL_CONFIG_HOME/profiles/git-bash/profile.bash\""
             "$inputrc_content" ".inputrc"
     fi
 
-    nano_content="include \"$TARGET/nano/nanorc\""
+    # Nano's `include` command accepts syntax-coloring files only. Settings and
+    # key bindings must live in the top-level nanorc, so copy the managed
+    # directives into an idempotent block instead of including nano/nanorc.
+    nano_content="$(cat "$ROOT_DIR/nano/nanorc")"
     upsert_block "$HOME/.nanorc" \
         "# >>> shell-profile >>>" \
         "# <<< shell-profile <<<" \
