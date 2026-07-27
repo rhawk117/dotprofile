@@ -6,9 +6,14 @@ mkdir -p "${HISTFILE:h}"
 HISTSIZE=50000
 SAVEHIST=50000
 
+# Append each command when it completes without continuously importing and
+# rewriting history from every other active shell. SHARE_HISTORY made command
+# entry noticeably less responsive on filesystems where metadata writes are
+# comparatively expensive, including WSL-mounted environments.
 setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY
-setopt SHARE_HISTORY
+unsetopt SHARE_HISTORY
+
 setopt EXTENDED_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_FIND_NO_DUPS
