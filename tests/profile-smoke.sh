@@ -16,13 +16,23 @@ assert_function() {
 assert_loader_mentions_every_module() {
     local directory="$1"
     local loader="$2"
+    local module_pattern="$3"
     local file name
 
     while IFS= read -r file; do
         name="$(basename "$file")"
         [[ "$file" == "$loader" ]] && continue
         grep -Fq "$name" "$loader" || fail "loader omits module: $file"
-    done < <(find "$directory" -maxdepth 1 -type f | sort)
+    done < <(find "$directory" -maxdepth 1 -type f -name "$module_pattern" | sort)
+}
+
+assert_installer_manages_file() {
+    local file="$1"
+    local relative_path
+
+    relative_path="${file#"$ROOT_DIR"/}"
+    grep -Fq "$relative_path" "$ROOT_DIR/install.sh" ||
+        fail "installer omits non-shell profile file: $relative_path"
 }
 
 check_bash_syntax() {
@@ -60,13 +70,20 @@ run_wsl_zsh_load() {
 check_bash_syntax
 assert_loader_mentions_every_module \
     "$ROOT_DIR/profiles/common" \
-    "$ROOT_DIR/profiles/common/profile.sh"
+    "$ROOT_DIR/profiles/common/profile.sh" \
+    '*.sh'
 assert_loader_mentions_every_module \
     "$ROOT_DIR/profiles/git-bash" \
-    "$ROOT_DIR/profiles/git-bash/profile.bash"
+    "$ROOT_DIR/profiles/git-bash/profile.bash" \
+    '*.bash'
 assert_loader_mentions_every_module \
     "$ROOT_DIR/profiles/wsl-zsh" \
-    "$ROOT_DIR/profiles/wsl-zsh/profile.zsh"
+    "$ROOT_DIR/profiles/wsl-zsh/profile.zsh" \
+    '*.zsh'
+
+# Readline consumes this through the installer-managed ~/.inputrc include. It is
+# configuration data, not a shell module, and must never be sourced by Bash.
+assert_installer_manages_file "$ROOT_DIR/profiles/git-bash/inputrc"
 
 case "$MODE" in
     all)
