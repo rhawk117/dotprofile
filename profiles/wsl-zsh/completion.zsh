@@ -18,7 +18,14 @@ fi
 zstyle ':completion:*' menu select
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' verbose yes
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# LS_COLORS is optional and commonly absent in clean shells and CI. Do not let
+# nounset turn missing cosmetic configuration into a failed profile load.
+_completion_ls_colors="${LS_COLORS:-}"
+if [[ -n "$_completion_ls_colors" ]]; then
+    zstyle ':completion:*' list-colors "${(s.:.)_completion_ls_colors}"
+fi
+
 zstyle ':completion:*' matcher-list \
     'm:{a-zA-Z}={A-Za-z}' \
     'r:|[._-]=* r:|=*'
@@ -42,4 +49,5 @@ compdef _git gs gstatus gaa gap gc gsw grs grst glog gloga \
 compdef _kubectl k kgp kga kgs kgd kctx kctxs kns 2>/dev/null
 compdef _docker d dps dpa di dcu dcud dcd dcl dcb 2>/dev/null
 
-unset _completion_cache_dir _completion_dump _fzf_init_file _fzf_bin
+unset _completion_cache_dir _completion_dump _completion_ls_colors \
+    _fzf_init_file _fzf_bin
