@@ -19,6 +19,7 @@ Daily navigation
   bkmark                    Bookmark the current directory
   bkmark go                 Return to the bookmarked directory
   bkmark show               Print the current bookmark
+  bkmark clear              Clear the current bookmark
   pathlines                 Print PATH one entry per line
 
 Git workflows
@@ -34,9 +35,11 @@ Fuzzy workflows
   fzcd [ROOT]               Select and enter a directory
   fznano [ROOT]             Select a file and open it in Nano
   fzvs [ROOT]               Select a path and open it in VS Code
+  fzless [ROOT]             Select a file and open it in less
+  fzmore [ROOT]             Select a file and open it in more
   fzgrep TEXT [ROOT]        Search content and open the selected match
   fzh                       Search and execute command history
-  fzps                      Browse processes
+  fzps [--pid-only]         Browse processes or print a PID
   fzclip                    Select one stdin line and copy it
 
 Files and search
