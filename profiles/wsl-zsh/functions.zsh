@@ -82,7 +82,6 @@ p10k-save() {
 
     mkdir -p "$P10K_THEME_DIR"
     cp -- "$HOME/.p10k.zsh" "$P10K_THEME_DIR/$name.zsh"
-
     print "Saved Powerlevel10k theme: $name"
 }
 
@@ -103,8 +102,6 @@ p10k-use() {
     fi
 
     cp -- "$config" "$HOME/.p10k.zsh"
-
-    # Replace the current shell instead of stacking another Zsh process.
     exec zsh
 }
 
@@ -144,4 +141,33 @@ p10k-new() {
     fi
 
     p10k configure
+}
+
+p10k-help() {
+    cat <<'EOF'
+Powerlevel10k saved-theme workflow
+
+  p10k-new                 Back up the active config and run the wizard
+  p10k-save NAME           Save ~/.p10k.zsh as NAME
+  p10k-list                List saved configurations
+  p10k-use NAME            Copy NAME into ~/.p10k.zsh and restart Zsh
+  p10k-edit                Edit the active ~/.p10k.zsh
+  p10k-edit NAME           Edit a saved configuration
+
+Suggested comparison workflow:
+  p10k-new
+  p10k-save rainbow
+  p10k-new
+  p10k-save lean
+  p10k-list
+  p10k-use rainbow
+  p10k-use lean
+
+Saved configurations live in:
+  ~/.configs/powerlevel10k/themes
+
+Powerlevel10k style and terminal color palette are separate. Use an 8-color
+wizard configuration when you want Windows Terminal palette changes to affect
+most prompt colors.
+EOF
 }
