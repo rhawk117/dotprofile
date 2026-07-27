@@ -11,6 +11,12 @@ source "$SHELL_CONFIG_HOME/profiles/common/paths.sh"
 # shellcheck disable=SC1091
 source "$SHELL_CONFIG_HOME/profiles/common/functions.sh"
 # shellcheck disable=SC1091
+source "$SHELL_CONFIG_HOME/profiles/common/daily-tools.sh"
+# shellcheck disable=SC1091
+source "$SHELL_CONFIG_HOME/profiles/common/fzf-tools.sh"
+# shellcheck disable=SC1091
+source "$SHELL_CONFIG_HOME/profiles/common/help.sh"
+# shellcheck disable=SC1091
 source "$SHELL_CONFIG_HOME/profiles/common/aliases.sh"
 
 if [[ -t 0 ]]; then
