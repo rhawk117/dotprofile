@@ -3,10 +3,11 @@
 : "${SHELL_CONFIG_HOME:=$HOME/.configs}"
 export SHELL_CONFIG_HOME
 
-# Clear aliases before Zsh parses function definitions with the same names.
+# Zsh expands aliases while parsing function definitions. Remove aliases for
+# every platform function before loading the module that defines them.
 unalias \
-    copy paste openwin winpath unixpath winhome ports port \
-    p10k-save p10k-use p10k-list p10k-edit p10k-new p10k-help \
+    __profile_source_required copy paste openwin winpath unixpath winhome \
+    ports port p10k-save p10k-use p10k-list p10k-edit p10k-new p10k-help \
     2>/dev/null || true
 
 __profile_source_required() {
@@ -33,13 +34,8 @@ for __profile_module in \
     completion.zsh \
     functions.zsh \
     aliases.zsh; do
-    if [[ "$__profile_module" == ../common/* ]]; then
-        __profile_source_required \
-            "$SHELL_CONFIG_HOME/profiles/wsl-zsh/$__profile_module" || return 1
-    else
-        __profile_source_required \
-            "$SHELL_CONFIG_HOME/profiles/wsl-zsh/$__profile_module" || return 1
-    fi
+    __profile_source_required \
+        "$SHELL_CONFIG_HOME/profiles/wsl-zsh/$__profile_module" || return 1
 done
 
 unset __profile_module
