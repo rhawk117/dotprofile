@@ -6,6 +6,10 @@ export SHELL_CONFIG_HOME="$ROOT_DIR"
 export HOME="$(mktemp -d)"
 trap 'rm -rf "$HOME"' EXIT
 
+# Clean shells do not guarantee cosmetic variables such as LS_COLORS. Keep
+# nounset enabled so optional environment assumptions fail loudly in tests.
+unset LS_COLORS XDG_CACHE_HOME XDG_STATE_HOME FZF_DEFAULT_OPTS 2>/dev/null || true
+
 # Reproduce the real failure mode: aliases already exist before the profile is
 # sourced, so Zsh would otherwise expand them while parsing function bodies.
 alias reload='source ~/.zshrc'
