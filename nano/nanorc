@@ -1,0 +1,51 @@
+# Portable Nano configuration.
+# Explicit bindings support Nano versions older than 8.0.
+
+set autoindent
+set atblanks
+set constantshow
+set historylog
+set indicator
+set linenumbers
+set locking
+set minibar
+set mouse
+set positionlog
+set smarthome
+set softwrap
+set stateflags
+set tabsize 4
+set tabstospaces
+set trimblanks
+set zap
+
+set titlecolor brightwhite,blue
+set statuscolor brightwhite,black
+set keycolor brightcyan
+set functioncolor cyan
+set numbercolor brightblack
+set spotlightcolor black,brightyellow
+set selectedcolor brightwhite,magenta
+
+# Modern editing bindings
+bind ^A mark main
+bind ^C copy main
+bind ^X cut main
+bind ^V paste main
+bind ^P paste main
+bind ^Z undo main
+bind ^Y redo main
+
+# Search and navigation
+bind ^F whereis main
+bind ^G findnext main
+bind ^B wherewas main
+bind ^D findprevious main
+bind ^R replace main
+bind ^T gotoline main
+
+# File operations
+bind ^S savefile main
+bind ^O insert main
+bind ^Q exit all
+bind F10 exit all

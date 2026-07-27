@@ -1,0 +1,7 @@
+# Operating-system and editor debris, not project policy
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~

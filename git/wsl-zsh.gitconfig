@@ -1,0 +1,7 @@
+# WSL/Linux filesystem behavior
+
+[core]
+    autocrlf = input
+    eol = lf
+    fileMode = true
+

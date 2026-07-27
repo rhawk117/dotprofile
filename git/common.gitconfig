@@ -1,0 +1,79 @@
+# Shared Git defaults. User identity intentionally remains in ~/.gitconfig.
+
+[init]
+    defaultBranch = main
+
+[color]
+    ui = auto
+
+[column]
+    ui = auto
+
+[branch]
+    sort = -committerdate
+
+[tag]
+    sort = version:refname
+
+[core]
+    editor = nano
+    pager = less -FRX
+
+[diff]
+    algorithm = histogram
+    colorMoved = default
+    mnemonicPrefix = true
+    renames = true
+
+[merge]
+    conflictStyle = zdiff3
+
+[fetch]
+    prune = true
+    pruneTags = true
+
+[pull]
+    ff = only
+
+[push]
+    autoSetupRemote = true
+    default = current
+    followTags = true
+
+[rebase]
+    autoStash = true
+    updateRefs = true
+
+[rerere]
+    enabled = true
+    autoUpdate = true
+
+[commit]
+    verbose = true
+
+[help]
+    autocorrect = prompt
+
+[protocol]
+    version = 2
+
+[alias]
+    s = status --short --branch
+    st = status
+    aa = add --all
+    ap = add --patch
+    br = branch
+    co = checkout
+    sw = switch
+    rs = restore
+    unstage = restore --staged
+    lg = log --graph --decorate --oneline --all
+    last = log -1 --stat
+    changed = diff --name-status
+    staged = diff --cached
+    ignored = ls-files --cached --ignored --exclude-standard
+    aliases = config --get-regexp ^alias\\.
+    root = rev-parse --show-toplevel
+    amend = commit --amend --no-edit
+    contributors = shortlog --summary --numbered --email
+    recent = for-each-ref --sort=-committerdate --format=%(committerdate:relative)%09%(refname:short) refs/heads/

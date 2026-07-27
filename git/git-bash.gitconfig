@@ -1,0 +1,8 @@
+# Git Bash on a Windows filesystem
+
+[core]
+    autocrlf = input
+    eol = lf
+    fileMode = false
+    symlinks = false
+

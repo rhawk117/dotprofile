@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+set -u
+
+if [[ -t 1 && -z "${NO_COLOR:-}" ]]; then
+    green=$'\033[32m'
+    yellow=$'\033[33m'
+    red=$'\033[31m'
+    cyan=$'\033[36m'
+    reset=$'\033[0m'
+else
+    green=""
+    yellow=""
+    red=""
+    cyan=""
+    reset=""
+fi
+
+ok() { printf '%s[ok]%s %s\n' "$green" "$reset" "$*"; }
+warn() { printf '%s[!!]%s %s\n' "$yellow" "$reset" "$*"; }
+bad() { printf '%s[xx]%s %s\n' "$red" "$reset" "$*"; }
+head() { printf '\n%s%s%s\n' "$cyan" "$*" "$reset"; }
+
+check_command() {
+    local label="$1"
+    shift
+    local candidate
+
+    for candidate in "$@"; do
+        if command -v "$candidate" >/dev/null 2>&1; then
+            ok "$label -> $(command -v "$candidate")"
+            return 0
+        fi
+    done
+
+    warn "$label missing (${*})"
+    return 1
+}
+
+head "Shell profile"
+printf 'shell:   %s\n' "${SHELL:-unknown}"
+printf 'config:  %s\n' "${SHELL_CONFIG_HOME:-$HOME/.configs}"
+printf 'profile: '
+if [[ -n "${ZSH_VERSION:-}" ]]; then
+    printf 'wsl-zsh\n'
+elif [[ "${MSYSTEM:-}" == MINGW* || "${MSYSTEM:-}" == MSYS* ]]; then
+    printf 'git-bash\n'
+else
+    printf 'unknown\n'
+fi
+
+head "Core tools"
+check_command git git
+check_command nano nano
+check_command fzf fzf
+check_command ripgrep rg
+check_command fd "${FD_BIN:-fd}" fd fdfind
+check_command bat "${BAT_BIN:-bat}" bat batcat
+check_command less less
+
+head "Optional tools"
+check_command tree tree
+check_command uv uv
+check_command Docker docker
+check_command kubectl kubectl
+check_command GitHub gh
+check_command Jira jira
+
+head "Clipboard"
+if [[ -n "${ZSH_VERSION:-}" ]]; then
+    check_command copy clip.exe wl-copy xclip xsel
+    check_command paste win32yank.exe wl-paste xclip xsel
+elif [[ -e /dev/clipboard ]]; then
+    ok "/dev/clipboard"
+else
+    bad "/dev/clipboard unavailable"
+fi
+
+head "Terminal"
+if stty -a 2>/dev/null | grep -q -- '-ixon'; then
+    ok "software flow control disabled"
+else
+    warn "ixon is enabled; Ctrl+S and Ctrl+Q may be intercepted"
+fi
+
+head "Configuration files"
+for file in \
+    "${SHELL_CONFIG_HOME:-$HOME/.configs}/nano/nanorc" \
+    "${SHELL_CONFIG_HOME:-$HOME/.configs}/git/common.gitconfig" \
+    "${SHELL_CONFIG_HOME:-$HOME/.configs}/ripgrep/config"; do
+    [[ -f "$file" ]] && ok "$file" || bad "$file missing"
+done

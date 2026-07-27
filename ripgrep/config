@@ -1,0 +1,16 @@
+--hidden
+--smart-case
+--line-number
+--column
+--glob=!.git/*
+--glob=!node_modules/*
+--glob=!dist/*
+--glob=!build/*
+--glob=!coverage/*
+--glob=!__pycache__/*
+--glob=!.venv/*
+--colors=path:fg:magenta
+--colors=line:fg:green
+--colors=column:fg:green
+--colors=match:fg:yellow
+--colors=match:style:bold
