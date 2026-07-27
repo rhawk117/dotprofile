@@ -4,8 +4,8 @@
 export SHELL_CONFIG_HOME
 
 unalias \
-    copy paste openwin winpath unixpath winhome ports port \
-    __git_branch set_gitbash_prompt __portable_profile_prompt_command \
+    __profile_source_required copy paste openwin winpath unixpath winhome \
+    ports port __git_branch set_gitbash_prompt __portable_profile_prompt_command \
     2>/dev/null || true
 
 __profile_source_required() {
