@@ -8,11 +8,11 @@ export SHELL_CONFIG_HOME
 # that this profile defines before sourcing the function modules, otherwise a
 # pre-existing alias such as `reload` can make the entire profile fail to parse.
 unalias \
-    shell_rc_file reload catrc editrc mkcd croot pathlines extract psg \
-    lstree tree cat rawcat ccat b bn bl fcd fe fif serve json jwt_payload \
-    rc_info rc_success rc_warn rc_error gitsnap gitfeat upby rglob gr gri bkmark \
-    __fz_has __fz_require __fz_find __fz_preview __fz_files __fz_dirs \
-    __fz_preview_command __fz_open_line __fzps_list \
+    __profile_source_required shell_rc_file reload catrc editrc mkcd croot \
+    pathlines extract psg lstree tree cat rawcat ccat b bn bl fcd fe fif \
+    serve json jwt_payload rc_info rc_success rc_warn rc_error gitsnap gitfeat \
+    upby rglob gr gri bkmark __fz_has __fz_require __fz_find __fz_preview \
+    __fz_files __fz_dirs __fz_preview_command __fz_open_line __fzps_list \
     fzls fzinfo fzcd fznano fzvs fzless fzmore fzclip fzh fzgc fzgrep fzg \
     fzdiff fzcomp fzps fzhelp profile-help \
     2>/dev/null || true
